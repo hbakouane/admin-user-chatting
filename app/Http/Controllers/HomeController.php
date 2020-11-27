@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(auth()->check()) {
+            $expiresAt = \Carbon\Carbon::now()->addMinutes(5);
+            Cache::put('user-is-online' . auth()->user()->id, true, $expiresAt);
+        }
+        $users = User::with(['message' => function($query) {
+            $query->orderBy('created_at', 'DESC');
+        }])->orderBy('id', 'DESC')->get();
+        return view('home', [
+            'users' => $users
+        ]);
     }
 }

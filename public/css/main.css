@@ -1,0 +1,23 @@
+.avatar {
+    height: 50px;
+    width: 50px;
+}
+.list-group-item:hover, .list-group-item:focus {
+    background: rgba(24,32,23,0.37);
+    cursor: pointer;
+}
+.chatbox {
+    height: 80vh !important;
+    overflow-y: scroll;
+}
+.message-box {
+    height: 70vh !important;
+    overflow-y: scroll;display:flex; flex-direction:column-reverse;
+}
+.single-message {
+    background: #f1f0f0;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: fit-content;
+}
