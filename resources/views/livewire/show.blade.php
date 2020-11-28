@@ -9,10 +9,16 @@
                     <div class="card-body chatbox p-0">
                         <ul class="list-group list-group-flush">
                             @foreach($users as $user)
+                                @php
+                                    $not_seen = \App\Models\Message::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
+                                @endphp
                                 <a href="{{ route('inbox.show', $user->id) }}" class="text-dark link">
                                     <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
                                         <img class="img-fluid avatar" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png">
                                         {{ $user->name }}
+                                        @if(filled($not_seen))
+                                            <div class="badge badge-success rounded">{{ $not_seen->count() }}</div>
+                                        @endif
                                     </li>
                                 </a>
                             @endforeach
@@ -27,20 +33,16 @@
                     {{ $sender->name }}
                 </div>
                 <div class="card-body message-box" wire:poll.10ms="mount">
-                    @if(!$messages)
-                        No messages to show
+                    @if(filled($messages))
+                        @foreach($messages as $message)
+                            <div class="single-message @if($message->user_id !== auth()->id()) received @else sent @endif">
+                                <p class="font-weight-bolder my-0">{{ $message->user->name }}</p>
+                                {{ $message->message }}
+                                <br><small class="text-muted w-100">Sent <em>{{ $message->created_at }}</em></small>
+                            </div>
+                        @endforeach
                     @else
-                        @if(isset($messages))
-                            @foreach($messages as $message)
-                                <div class="single-message @if($message->user_id !== auth()->id()) received @else sent @endif">
-                                    <p class="font-weight-bolder my-0">{{ $message->user->name }}</p>
-                                    {{ $message->message }}
-                                    <br><small class="text-muted w-100">Sent <em>{{ $message->created_at }}</em></small>
-                                </div>
-                            @endforeach
-                        @else
-                            No messages to show
-                        @endif
+                        No messages to show
                     @endif
                 </div>
                 <div class="card-footer">

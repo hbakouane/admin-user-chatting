@@ -9,10 +9,18 @@
                     <div class="card-body chatbox p-0">
                         <ul class="list-group list-group-flush">
                             @foreach($users as $user)
-                                <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
-                                    <img class="img-fluid avatar" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png">
-                                    {{ $user->name }}
-                                </li>
+                                @php
+                                    $not_seen = \App\Models\Message::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
+                                @endphp
+                                <a href="{{ route('inbox.show', $user->id) }}" class="text-dark link">
+                                    <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
+                                        <img class="img-fluid avatar" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png">
+                                        {{ $user->name }}
+                                        @if(filled($not_seen))
+                                            <div class="badge badge-success rounded">{{ $not_seen->count() }}</div>
+                                        @endif
+                                    </li>
+                                </a>
                             @endforeach
                         </ul>
                     </div>

@@ -11,6 +11,7 @@ class Show extends Component
     public $messages;
     public $sender;
     public $message;
+    public $not_seen;
 
     public function render()
     {
@@ -27,6 +28,8 @@ class Show extends Component
         } else {
             $this->messages = \App\Models\Message::where('user_id', $this->sender->id)->orWhere('receiver', $this->sender->id)->orderBy('id', 'DESC')->get();
         }
+        $not_seen = \App\Models\Message::where('user_id', $this->sender->id)->where('receiver', auth()->id());
+        $not_seen->update(['is_seen' => true]);
     }
 
     public function SendMessage() {
