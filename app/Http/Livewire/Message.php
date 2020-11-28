@@ -18,13 +18,13 @@ class Message extends Component
         return view('livewire.message');
     }
 
-    public function mount() {
+    public function mount($clicked_user_param = null) {
+        $clicked_user = $this->clicked_user;
         if (auth()->user()->is_admin == false) {
             $this->messages = \App\Models\Message::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();
         } else {
             $this->messages = \App\Models\Message::where('user_id', $this->clicked_user)->orWhere('receiver', $this->clicked_user)->orderBy('id', 'DESC')->get();
         }
-        $clicked_user = $this->clicked_user;
     }
 
     public function SendMessage() {

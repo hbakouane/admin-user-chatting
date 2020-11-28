@@ -21,3 +21,18 @@
     margin-bottom: 10px;
     width: fit-content;
 }
+.received {
+    margin-right: auto !important;
+}
+.sent {
+    margin-left: auto !important;
+    background :#3490dc;
+    color: white!important;
+}
+.sent small {
+    color: white !important;
+}
+.link:hover {
+    list-style: none !important;
+    text-decoration: none;
+}
