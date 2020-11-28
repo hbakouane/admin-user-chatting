@@ -49,7 +49,7 @@
                     <form wire:submit.prevent="SendMessage">
                         <div class="row">
                             <div class="col-md-8">
-                                <textarea wire:model="message" rows="2" class="form-control input shadow-none w-100 d-inline-block" placeholder="Type a message" required></textarea>
+                                <input wire:model="message" class="form-control input shadow-none w-100 d-inline-block" placeholder="Type a message" required>
                             </div>
 
                             <div class="col-md-4">
