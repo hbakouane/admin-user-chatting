@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use \App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class Message extends Component
@@ -15,11 +16,12 @@ class Message extends Component
 
     public function render()
     {
-        return view('livewire.message');
+        return view('livewire.message', [
+            'users' => $this->users
+        ]);
     }
 
-    public function mount($clicked_user_param = null) {
-        $clicked_user = $this->clicked_user;
+    public function mount() {
         if (auth()->user()->is_admin == false) {
             $this->messages = \App\Models\Message::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();
         } else {

@@ -11,15 +11,7 @@ class InboxController extends Controller
 {
 
     public function index() {
-        if(auth()->check()) {
-            $expiresAt = \Carbon\Carbon::now()->addMinutes(5);
-            Cache::put('user-is-online' . auth()->user()->id, true, $expiresAt);
-        } else {
-            abort(403);
-        }
-        $users = User::with(['message' => function($query) {
-            $query->orderBy('created_at', 'DESC');
-        }])->orderBy('id', 'DESC')->get();
+        $users = User::orderBy('id', 'DESC')->get();
 
         if (auth()->user()->is_admin == false) {
             $messages = Message::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();

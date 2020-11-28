@@ -7,7 +7,7 @@
                         Users
                     </div>
                     <div class="card-body chatbox p-0">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush" wire:poll="render">
                             @foreach($users as $user)
                                 @php
                                     $not_seen = \App\Models\Message::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
