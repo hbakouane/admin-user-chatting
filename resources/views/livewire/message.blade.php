@@ -30,7 +30,15 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    @if(isset($clicked_user)) {{ $clicked_user->name }} @elseif(auth()->user()->is_admin == true) Select a user to see the chat @else Messages @endif
+                    @if(isset($clicked_user)) {{ $clicked_user->name }}
+
+                    @elseif(auth()->user()->is_admin == true)
+                        Select a user to see the chat
+                    @elseif($admin->is_online)
+                        <i class="fa fa-circle text-success"></i> We are online
+                    @else
+                        Messages
+                    @endif
                 </div>
                     <div class="card-body message-box">
                         @if(!$messages)
@@ -57,7 +65,7 @@
                         <form wire:submit.prevent="SendMessage">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <textarea wire:model="message" rows="2" class="form-control input shadow-none w-100 d-inline-block" placeholder="Type a message" required></textarea>
+                                    <input wire:model="message" class="form-control input shadow-none w-100 d-inline-block" placeholder="Type a message" required>
                                 </div>
 
                                 <div class="col-md-4">

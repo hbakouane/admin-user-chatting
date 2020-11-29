@@ -13,11 +13,14 @@ class Message extends Component
     public $users;
     public $clicked_user;
     public $messages;
+    public $admin;
 
     public function render()
     {
+
         return view('livewire.message', [
-            'users' => $this->users
+            'users' => $this->users,
+            'admin' => $this->admin
         ]);
     }
 
@@ -27,6 +30,7 @@ class Message extends Component
         } else {
             $this->messages = \App\Models\Message::where('user_id', $this->clicked_user)->orWhere('receiver', $this->clicked_user)->orderBy('id', 'DESC')->get();
         }
+        $this->admin = \App\Models\User::where('is_admin', true)->first();
     }
 
     public function SendMessage() {
