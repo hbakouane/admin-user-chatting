@@ -14,6 +14,8 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->times(1)->create();
+        User::factory()->times(1)->create([
+            'is_admin' => true,
+        ]);
     }
 }
