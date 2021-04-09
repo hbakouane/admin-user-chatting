@@ -11,7 +11,8 @@ class InboxController extends Controller
 {
 
     public function index() {
-        $users = User::orderBy('id', 'DESC')->get();
+        // Show just the users and not the admins as well
+        $users = User::where('is_admin', false)->orderBy('id', 'DESC')->get();
 
         if (auth()->user()->is_admin == false) {
             $messages = Message::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();
@@ -32,7 +33,9 @@ class InboxController extends Controller
 
         $users = User::with(['message' => function($query) {
             return $query->orderBy('created_at', 'DESC');
-        }])->orderBy('id', 'DESC')->get();
+        }])->where('is_admin', false)
+            ->orderBy('id', 'DESC')
+            ->get();
 
         if (auth()->user()->is_admin == false) {
             $messages = Message::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();

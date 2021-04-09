@@ -39,3 +39,9 @@
 .online-icon {
     font-size: 11px !important;
 }
+#file-area {
+    cursor: pointer;
+}
+#file-area > label > input {
+    display: none !important;
+}

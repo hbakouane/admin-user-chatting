@@ -3,16 +3,19 @@
 namespace App\Http\Livewire;
 
 use \App\Models\User;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads; 
 
 class Message extends Component
 {
+    use WithFileUploads;
 
-    public $message;
+    public $message = '';
     public $users;
     public $clicked_user;
     public $messages;
+    public $file;
     public $admin;
 
     public function render()
@@ -50,15 +53,30 @@ class Message extends Component
             $this->user_id = $this->clicked_user->id;
         }
         $new_message->receiver = $this->user_id;
+
+        // Deal with the file if uploaded
+        if ($this->file) {
+            $file = $this->file->store('public/files');
+            $path = url(Storage::url($file));
+            $new_message->file = $path;
+            $new_message->file_name = $this->file->getClientOriginalName();
+        }
         $new_message->save();
 
         // Clear the message after it's sent
-        $this->reset('message');
+        $this->reset(['message']);
+        $this->file = '';
     }
 
-    public function getUser($user_id) {
+    public function getUser($user_id) 
+    {
         $this->clicked_user = User::find($user_id);
         $this->messages = \App\Models\Message::where('user_id', $user_id)->get();
+    }
+
+    public function resetFile() 
+    {
+        $this->reset('file');
     }
 
 }
