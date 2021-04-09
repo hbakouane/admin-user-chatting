@@ -37,7 +37,7 @@ the password of the whole generated users is <code>password</code>
 
 ## To-Dos
 + Show offline status
-✔️ Sending messages including files (Updated 09/04/2021)
++ ✔️ Sending messages including files (Updated 09/04/2021)
 
 
 ### I hope you enjoy it!
