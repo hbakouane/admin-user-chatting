@@ -26,9 +26,15 @@ class Message extends Component
 
     public function mount() {
         if (auth()->user()->is_admin == false) {
-            $this->messages = \App\Models\Message::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();
+            $this->messages = \App\Models\Message::where('user_id', auth()->id())
+                                                    ->orWhere('receiver', auth()->id())
+                                                    ->orderBy('id', 'DESC')
+                                                    ->get();
         } else {
-            $this->messages = \App\Models\Message::where('user_id', $this->clicked_user)->orWhere('receiver', $this->clicked_user)->orderBy('id', 'DESC')->get();
+            $this->messages = \App\Models\Message::where('user_id', $this->clicked_user)
+                                                    ->orWhere('receiver', $this->clicked_user)
+                                                    ->orderBy('id', 'DESC')
+                                                    ->get();
         }
         $this->admin = \App\Models\User::where('is_admin', true)->first();
     }
@@ -45,6 +51,9 @@ class Message extends Component
         }
         $new_message->receiver = $this->user_id;
         $new_message->save();
+
+        // Clear the message after it's sent
+        $this->reset('message');
     }
 
     public function getUser($user_id) {
