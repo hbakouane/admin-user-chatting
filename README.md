@@ -30,9 +30,14 @@ the password of the whole generated users is <code>password</code>
     <img align="center" src="https://i.ibb.co/DMGF1gT/Unbenannt.png">    
 </p>
 
+## Updates (Users and admins can send files)
+<p>
+    <img align="center" src="https://i.ibb.co/Nt6fTT9/ff.png">
+</p>
+
 ## To-Dos
 + Show offline status
-+ Sending messages including files
+✔️ Sending messages including files (Updated 09/04/2021)
 
 
 ### I hope you enjoy it!
