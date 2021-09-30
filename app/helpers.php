@@ -8,7 +8,7 @@ if (!function_exists('isPhoto'))
         $exploded = explode('.', $path);
         $ext = strtolower(end($exploded));
         // Define the photos extensions
-        $photoExtensions = ['png', 'jpg', 'jpeg', 'gif', 'jfif', 'tif'];
+        $photoExtensions = ['png', 'jpg', 'jpeg', 'gif', 'jfif', 'tif', 'webp'];
         // Check if this extension belongs to the extensions we defined
         if (in_array($ext, $photoExtensions)) {
             return true;
