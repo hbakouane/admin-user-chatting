@@ -19,6 +19,7 @@
 <code>php artisan key:generate</code><br><br>
 <code>php artisan migrate</code><br><br>
 <code>php artisan serve --port=3000</code><br><br>
+<code>php artisan storage:link</code><br><br>
 now you can visit localhost:3000 and see the project
 
 To generate users, admin and messages, run this command <br>
