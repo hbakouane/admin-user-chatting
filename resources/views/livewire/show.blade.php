@@ -50,7 +50,7 @@
                                     </div>
                                 @elseif ($message->file)
                                     <div class="w-100 my-2">
-                                        <a href="{{ $message->file}}" class="bg-light p-2 rounded-pill" target="_blank"><i class="fa fa-download"></i> 
+                                        <a href="{{ $message->file}}" class="bg-light p-2 rounded-pill" target="_blank" download><i class="fa fa-download"></i> 
                                             {{ $message->file_name }}
                                         </a>
                                     </div>

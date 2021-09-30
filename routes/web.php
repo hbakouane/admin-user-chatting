@@ -25,6 +25,6 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/inbox', [InboxController::class, 'index'])->name('inbox');
+    Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
     Route::get('/inbox/{id}', [InboxController::class, 'show'])->name('inbox.show');
 });
