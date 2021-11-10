@@ -27,7 +27,12 @@ class Message extends Component
         ]);
     }
 
-    public function mount() {
+    public function mount()
+    {
+        $this->mountComponent();
+    }
+
+    public function mountComponent() {
         if (auth()->user()->is_admin == false) {
             $this->messages = \App\Models\Message::where('user_id', auth()->id())
                                                     ->orWhere('receiver', auth()->id())

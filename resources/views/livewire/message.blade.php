@@ -1,5 +1,5 @@
 <div>
-    <div class="row justify-content-center" wire:poll="mount">
+    <div class="row justify-content-center" wire:poll="mountComponent()">
         @if(auth()->user()->is_admin == true)
             <div class="col-md-4" wire:init>
                 <div class="card">
