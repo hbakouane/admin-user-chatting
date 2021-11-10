@@ -32,7 +32,7 @@
                 <div class="card-header">
                     {{ $sender->name }}
                 </div>
-                <div class="card-body message-box" wire:poll.10ms="mount">
+                <div class="card-body message-box" wire:poll.10ms="mountComponent()">
                     @if(filled($messages))
                         @foreach($messages as $message)
                             <div class="single-message @if($message->user_id !== auth()->id()) received @else sent @endif">

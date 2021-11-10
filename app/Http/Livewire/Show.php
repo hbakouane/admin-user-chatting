@@ -26,7 +26,7 @@ class Show extends Component
         ]);
     }
 
-    public function mount() {
+    public function mountComponent() {
         if (auth()->user()->is_admin == false) {
             $this->messages = \App\Models\Message::where('user_id', auth()->id())
                                                     ->orWhere('receiver', auth()->id())
@@ -40,6 +40,11 @@ class Show extends Component
         }
         $not_seen = \App\Models\Message::where('user_id', $this->sender->id)->where('receiver', auth()->id());
         $not_seen->update(['is_seen' => true]);
+    }
+
+    public function mount()
+    {
+        return $this->mountComponent();
     }
 
     public function SendMessage() {
